@@ -1,4 +1,3 @@
 git pull
 npm install
-npm start &
-disown
+npm start
