@@ -1,0 +1,1 @@
+{"version":3,"file":"Job.js","sourceRoot":"","sources":["../../src/entity/Job.ts"],"names":[],"mappings":";;;;;;;;;;;AAAA,mCAAsF;AACtF,qCAAkC;AAGlC;IAAA;IAYA,CAAC;IATG;QADC,gCAAsB,EAAE;;mCACb;IAGZ;QADC,gBAAM,EAAE;;wCACO;IAIhB;QAFC,oBAAU,CAAC,cAAM,OAAA,iBAAO,EAAP,CAAO,CAAC;QACzB,mBAAS,EAAE;;yCACQ;IAVX,GAAG;QADf,gBAAM,EAAE;OACI,GAAG,CAYf;IAAD,UAAC;CAAA,AAZD,IAYC;AAZY,kBAAG"}
