@@ -25,7 +25,12 @@ const main = async () => {
       const content = job.message.replace(/\{\{name\}\}/g, contact.name);
       console.log("wanna send {", content, "} to ", contact);
       try {
-        await sendMessage(`+1${contact.phoneNumber}`, content);
+        await sendMessage(
+          contact.phoneNumber.length === 11
+            ? `+${contact.phoneNumber}`
+            : `+1${contact.phoneNumber}`,
+          content
+        );
         numSent++;
       } catch (error) {
         console.log(error);
