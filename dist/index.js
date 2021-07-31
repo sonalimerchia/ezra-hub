@@ -35,7 +35,9 @@ const main = () => __awaiter(this, void 0, void 0, function* () {
             const content = job.message.replace(/\{\{name\}\}/g, contact.name);
             console.log("wanna send {", content, "} to ", contact);
             try {
-                yield sendMessage(`+1${contact.phoneNumber}`, content);
+                yield sendMessage(contact.phoneNumber.length === 11
+                    ? `+${contact.phoneNumber}`
+                    : `+1${contact.phoneNumber}`, content);
                 numSent++;
             }
             catch (error) {
