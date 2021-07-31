@@ -17,6 +17,7 @@ const firebase_1 = __importDefault(require("./config/firebase"));
 const path_1 = __importDefault(require("path"));
 const fs_1 = __importDefault(require("fs"));
 const express_1 = __importDefault(require("express"));
+const node_cron_1 = __importDefault(require("node-cron"));
 const sendMessage = require("./ibis/api-messaging.js").sendMessage;
 const main = () => __awaiter(this, void 0, void 0, function* () {
     const file = fs_1.default.readFileSync(path_1.default.join(__dirname, "./config/user.json"), {
@@ -55,22 +56,27 @@ const main = () => __awaiter(this, void 0, void 0, function* () {
             userDoc.set({ lifetimeJobs: numSent });
         }
     });
-    const query = userRef.collection("jobs").orderBy("startTime", "asc");
-    query.onSnapshot((snap) => {
-        snap.docs.forEach((doc) => __awaiter(this, void 0, void 0, function* () {
-            const data = doc.data();
-            if (data.startTime < Date.now() && !data.complete) {
-                yield startJob(data);
-                yield userRef.collection("jobs").doc(doc.id).update({ complete: true });
-            }
-        }));
-    });
     const app = express_1.default();
     app.get("/", (req, res) => {
         res.send("Hello World!");
     });
+    node_cron_1.default.schedule("* * * * *", () => {
+        console.log("Hello");
+    });
     app.listen(5622, () => {
-        console.log("app listening on port 5622");
+        const query = userRef.collection("jobs").orderBy("startTime", "asc");
+        query.onSnapshot((snap) => {
+            snap.docs.forEach((doc) => __awaiter(this, void 0, void 0, function* () {
+                const data = doc.data();
+                if (data.startTime < Date.now() && !data.complete) {
+                    yield startJob(data);
+                    yield userRef
+                        .collection("jobs")
+                        .doc(doc.id)
+                        .update({ complete: true });
+                }
+            }));
+        });
     });
 });
 main().catch((err) => {

@@ -1,3 +1,4 @@
-yarn install
-yarn start &
+git pull
+npm install
+npm start &
 disown
