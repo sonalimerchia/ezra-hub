@@ -61,9 +61,6 @@ const main = () => __awaiter(this, void 0, void 0, function* () {
         res.send("Hello World!");
     });
     node_cron_1.default.schedule("* * * * *", () => {
-        console.log("Hello");
-    });
-    app.listen(5622, () => {
         const query = userRef.collection("jobs").orderBy("startTime", "asc");
         query.onSnapshot((snap) => {
             snap.docs.forEach((doc) => __awaiter(this, void 0, void 0, function* () {
@@ -77,6 +74,9 @@ const main = () => __awaiter(this, void 0, void 0, function* () {
                 }
             }));
         });
+    });
+    app.listen(5622, () => {
+        console.log("app listening on port 5622");
     });
 });
 main().catch((err) => {

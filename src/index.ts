@@ -55,10 +55,6 @@ const main = async () => {
   });
 
   cron.schedule("* * * * *", () => {
-    console.log("Hello");
-  });
-
-  app.listen(5622, () => {
     const query = userRef.collection("jobs").orderBy("startTime", "asc");
     query.onSnapshot((snap) => {
       snap.docs.forEach(async (doc) => {
@@ -72,6 +68,10 @@ const main = async () => {
         }
       });
     });
+  });
+
+  app.listen(5622, () => {
+    console.log("app listening on port 5622");
   });
 };
 
